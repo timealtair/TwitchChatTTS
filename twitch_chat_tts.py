@@ -46,6 +46,8 @@ class LiveSettings:
         self.concatenate_func = self.clean_msg
         self.replace_links_with = 'link'
 
+        self.banned_users = {'nightbot'}
+
     def remove_links(self, text: str) -> str:
         pattern = r'http(\S+)'
         return re.sub(pattern, self.replace_links_with, text)
@@ -62,6 +64,8 @@ class LiveSettings:
         return ' '.join(res)
 
     def clean_msg(self, usr: str, msg: str) -> str:
+        if usr in self.banned_users:
+            return ''
         streamer = '@' + self.twitch_channel
         if streamer in msg:
             msg = msg.replace(streamer, '')
