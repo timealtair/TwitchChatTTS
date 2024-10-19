@@ -45,6 +45,7 @@ class LiveSettings:
         self.tts_lang = 'ru'
         self.concatenate_func = self.clean_msg
         self.replace_links_with = 'link'
+        self.skip_answers = False
 
         self.banned_users = {'nightbot'}
 
@@ -64,13 +65,16 @@ class LiveSettings:
         return ' '.join(res)
 
     def clean_msg(self, usr: str, msg: str) -> str:
-        if usr in self.banned_users:
+        if usr in self.banned_users or msg.startswith('!'):
             return ''
         streamer = '@' + self.twitch_channel
         if streamer in msg:
             msg = msg.replace(streamer, '')
-        if '@' in msg or msg.startswith('!'):
-            return ''
+        if '@' in msg:
+            if self.skip_answers:
+                return ''
+            else:
+                msg = re.sub(r'@\w+', '', msg)
         msg = self.remove_repeat_words(msg)
         msg = self.remove_links(msg)
         return msg
