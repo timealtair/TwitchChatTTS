@@ -35,6 +35,7 @@ class CliCommandsHandler(ConsoleAutoCompleter):
         print(f'>>> {cmd} ???', file=sys.stderr)
 
     def help_text_print(self, help_for) -> None:
+        help_for = self._settings.translate_param(help_for)
         print(self._settings.translate_param(f'help_{help_for}'))
 
     def extended_cmds_handle(self, cmd: str, args: str) -> None:
