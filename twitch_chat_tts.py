@@ -28,9 +28,10 @@ async def read_chat_loop(reader, settings, stop_event):
 
 
 if __name__ == '__main__':
-    settings = LiveSettings()
-
     tokens_file = 'tokens.json'
+    locale_json_fn = 'locales.json'
+
+    settings = LiveSettings(locale_json_fn)
     stop_event = threading.Event()
     threads = []
     reader = TwitchChatReader(tokens_file, settings, stop_event, threads)
