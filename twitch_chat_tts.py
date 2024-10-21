@@ -39,7 +39,7 @@ if __name__ == '__main__':
     stop_event = threading.Event()
     threads = []
     reader = TwitchChatReader(tokens_file, settings, stop_event, threads)
-    threading.Thread(target=CliCommandsHandler, args=(settings, stop_event)).start()
+    threading.Thread(target=CliCommandsHandler, args=(settings, stop_event, reader.clear_all)).start()
 
     try:
         asyncio.run(read_chat_loop(reader, settings, stop_event))
