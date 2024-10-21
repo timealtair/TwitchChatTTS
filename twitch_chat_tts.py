@@ -50,6 +50,15 @@ class LiveSettings(BaseSettings):
 
         self._banned_users = {'nightbot'}
 
+    def ban_username(self, username):
+        self._banned_users.add(username)
+
+    def unban_username(self, username):
+        self._banned_users.remove(username)
+
+    def get_banned_usernames(self):
+        return ', '.join(self._banned_users)
+
     def remove_links(self, text: str) -> str:
         pattern = r'http(\S+)'
         return re.sub(pattern, self.replace_links_with, text)
