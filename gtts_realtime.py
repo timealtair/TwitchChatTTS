@@ -1,9 +1,11 @@
 import time
 from gtts import gTTS
 import io
-import pygame
 import logging
 import asyncio
+import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+import pygame
 
 pygame.mixer.init()
 
