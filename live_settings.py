@@ -71,7 +71,7 @@ class LiveSettings(BaseSettings):
             d = json.load(f)
         for locale in d:
             res[locale] = {}
-            for k, v in d[locale]:
+            for k, v in d[locale].items():
                 res[locale][k] = v
                 res[locale][v] = k
         return res

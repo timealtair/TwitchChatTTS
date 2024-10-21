@@ -10,7 +10,7 @@
         "tts_min_pause": "seconds_to_wait_after_message",
         "tts_lang": "chat_language",
         "replace_links_with": "replace_links_with",
-        "skip_answers": "skip_answer_messages_(@user_name)",
+        "skip_answers": "skip_answer_messages",
         "cli_locale": "console_language"
     },
     "ru": {
