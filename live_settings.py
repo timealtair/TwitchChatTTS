@@ -19,7 +19,7 @@ class LiveSettings(BaseSettings):
         self.skip_answers = False
 
         self.cli_locale = 'en'
-        self.locale_dict = self.load_locales(locale_json_fn)
+        self._locale_dict = self.load_locales(locale_json_fn)
 
         self._twitch_replace_ban_word_dict = None
         self._banned_users = {'nightbot'}
@@ -78,7 +78,7 @@ class LiveSettings(BaseSettings):
 
     def translate_param(self, param_name) -> str:
         try:
-            return self.locale_dict[self.cli_locale][param_name]
+            return self._locale_dict[self.cli_locale][param_name]
         except KeyError:
             return param_name
 
