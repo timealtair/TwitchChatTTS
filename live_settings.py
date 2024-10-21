@@ -6,7 +6,7 @@ import yaml
 
 class LiveSettings(BaseSettings):
     def __init__(self, locale_json_fn, save_file: str, bans_file: str):
-        self.twitch_read_firsts = False
+        self.twitch_read_firsts = True
         self.twitch_print_messages = True
         self.twitch_should_filter = False
         self.twitch_remove_censored = False
@@ -14,7 +14,7 @@ class LiveSettings(BaseSettings):
         self.twitch_censore_by = '*'
         self.twitch_disable = False
 
-        self.tts_min_pause = 2
+        self.tts_min_pause = 5
         self.tts_lang = 'ru'
         self.replace_links_with = 'link'
         self.skip_answers = False
