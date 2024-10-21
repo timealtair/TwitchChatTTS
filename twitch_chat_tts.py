@@ -9,8 +9,6 @@ from cli_commands_handler import CliCommandsHandler
 
 
 async def read_chat_loop(reader, settings, stop_event):
-    print('Twitch channel: %r Lang: %r Wait: %r seconds' % (settings.twitch_channel, settings.tts_lang, settings.tts_min_pause))
-    print('Click "TAB" button for commands autocomplete.')
     while not stop_event.is_set():
         if settings.twitch_disable or not reader:
             await asyncio.sleep(1)
