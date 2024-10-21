@@ -1,5 +1,6 @@
 {
     "en": {
+        "exit": "exit",
         "twitch_read_firsts": "read_from_start",
         "twitch_print_messages": "show_messages",
         "twitch_should_filter": "filter_bad_words",
@@ -21,6 +22,7 @@
         "clear": "clear_messages",
         "help": "help",
         "help_help": "To see help about any parameter, use 'help param_name'",
+        "help_exit": "Wanna exit? Just type it.",
         "help_twitch_read_firsts": "If 'true' takes first message from collected else last.",
         "help_twitch_print_messages": "Show current message that is voicing.",
         "help_twitch_should_filter": "Check and replace bad words from messages.",
@@ -41,7 +43,8 @@
         "help_reset": "Resets all settings beside channel to read chat on and banned users list",
         "help_clear": "Clears all collected messages.",
         "help_true": "'true' can be used for autocomplete.",
-        "help_false": "'false' can be used for autocomplete."
+        "help_false": "'false' can be used for autocomplete.",
+        "welcome": "\n> Twitch channel: <{}>. Chat language: <{}>.\n> Wait time: <{}> seconds. Cli language: <{}>.\n\n> Click \"TAB\" button for commands list and autocomplete.\n> Use \"help\" if you need any help.\n"
     },
     "ru": {
         "help": "справка",

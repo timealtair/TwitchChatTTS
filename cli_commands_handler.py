@@ -86,8 +86,7 @@ class CliCommandsHandler(ConsoleAutoCompleter):
             self.extended_cmds_handle(cmd, args)
 
     def welcome_print(self):
-        print('\n> Twitch channel: <%s>. Chat language: <%s>.\n'
-              '> Wait time: <%s> seconds. Cli language: <%s>.'
-              % (self._settings.twitch_channel, self._settings.tts_lang,
-                 self._settings.tts_min_pause, self._settings.cli_locale))
-        print('> Click "TAB" button for commands autocomplete.\n')
+        msg = self._settings.translate_param('welcome')
+        msg = msg.format(self._settings.twitch_channel, self._settings.tts_lang,
+                         self._settings.tts_min_pause, self._settings.cli_locale)
+        print(msg)
