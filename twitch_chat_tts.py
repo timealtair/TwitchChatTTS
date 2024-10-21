@@ -10,10 +10,10 @@ from gtts_realtime import speak_text
 # OopCompanion:suppressRename
 
 
-async def read_chat_loop(reader, settings):
-    while not settings.twitch_disable:
-        if not reader:
-            await asyncio.sleep(0.1)
+async def read_chat_loop(reader, settings, stop_event):
+    while not stop_event.is_set():
+        if settings.twitch_disable or not reader:
+            await asyncio.sleep(1)
             continue
 
         if settings.twitch_read_firsts:
@@ -36,7 +36,7 @@ class LiveSettings:
         self.twitch_print_messages = True
         self.twitch_should_filter = False
         self.twitch_remove_censored = False
-        self.twitch_channel = 'inboss1k'
+        self.twitch_channel = 'betboom_ru'
         self.twitch_censore_by = '*'
         self.twitch_replace_ban_word_dict = None
         self.twitch_disable = False
@@ -90,6 +90,6 @@ if __name__ == '__main__':
     reader = twitch_chat_reader.TwitchChatReader(tokens_file, settings, stop_event, threads)
 
     try:
-        asyncio.run(read_chat_loop(reader, settings))
+        asyncio.run(read_chat_loop(reader, settings, stop_event))
     except (KeyboardInterrupt, SystemExit):
         stop_event.set()
