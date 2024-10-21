@@ -24,6 +24,8 @@ async def read_chat_loop(reader, settings, stop_event):
             await asyncio.sleep(0.1)
             continue
 
+        if settings.twitch_print_messages:
+            print(f'{usr}: {msg}')
         await speak_text(txt, settings.tts_lang)
         await asyncio.sleep(settings.tts_min_pause)
 
