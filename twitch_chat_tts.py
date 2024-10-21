@@ -22,7 +22,7 @@ async def read_chat_loop(reader, settings, stop_event):
         else:
             usr, msg = reader.get_message_from_right_end()
 
-        txt = settings.concatenate_func(usr, msg)
+        txt = settings._concatenate_func(usr, msg)
         if not txt:
             await asyncio.sleep(0.1)
             continue
@@ -31,7 +31,7 @@ async def read_chat_loop(reader, settings, stop_event):
         await asyncio.sleep(settings.tts_min_pause)
 
 
-class LiveSettings:
+class LiveSettings(BaseSettings):
     def __init__(self):
         self.twitch_read_firsts = False
         self.twitch_print_messages = True
@@ -44,11 +44,11 @@ class LiveSettings:
 
         self.tts_min_pause = 2
         self.tts_lang = 'ru'
-        self.concatenate_func = self.clean_msg
+        self._concatenate_func = self.clean_msg
         self.replace_links_with = 'link'
         self.skip_answers = False
 
-        self.banned_users = {'nightbot'}
+        self._banned_users = {'nightbot'}
 
     def remove_links(self, text: str) -> str:
         pattern = r'http(\S+)'
@@ -66,7 +66,7 @@ class LiveSettings:
         return ' '.join(res)
 
     def clean_msg(self, usr: str, msg: str) -> str:
-        if usr in self.banned_users or msg.startswith('!'):
+        if usr in self._banned_users or msg.startswith('!'):
             return ''
         streamer = '@' + self.twitch_channel
         if streamer in msg:
