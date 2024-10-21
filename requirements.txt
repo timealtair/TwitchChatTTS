@@ -1,5 +1,6 @@
-gTTS
-pygame
+gTTS~=2.5.3
+pygame~=2.6.1
 better-profanity
 pyreadline3
+pyyaml
 

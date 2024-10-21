@@ -31,12 +31,15 @@ async def read_chat_loop(reader, settings, stop_event):
 if __name__ == '__main__':
     tokens_file = 'tokens.json'
     locale_json_fn = 'locales.json'
+    settings_fn = 'settings.json'
+    bans_fn = 'banned_users.yml'
 
-    settings = LiveSettings(locale_json_fn)
+    settings = LiveSettings(locale_json_fn, settings_fn, bans_fn)
+    settings.load_settings_from_file()
     stop_event = threading.Event()
     threads = []
     reader = TwitchChatReader(tokens_file, settings, stop_event, threads)
-    threading.Thread(target=CliCommandsHandler, args=(settings,)).start()
+    threading.Thread(target=CliCommandsHandler, args=(settings, stop_event)).start()
 
     try:
         asyncio.run(read_chat_loop(reader, settings, stop_event))
