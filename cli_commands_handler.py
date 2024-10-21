@@ -58,6 +58,8 @@ class CliCommandsHandler(ConsoleAutoCompleter):
                         for key, val in self._settings.get_values().items()})
             case 'reset':
                 self._settings.reset_settings()
+            case 'cli_locales':
+                pprint(self._settings.get_supported_cli_locales())
             case _:
                 self.unknown_cmd_print(cmd)
 

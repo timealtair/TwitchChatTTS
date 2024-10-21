@@ -26,7 +26,8 @@ class LiveSettings(BaseSettings):
         self._twitch_replace_ban_word_dict = None
         self._banned_users = {'nightbot'}
         self._concatenate_func = self.clean_msg
-        self._ext_commands = ['exit', 'help', 'ban', 'unban', 'banned', 'vals', 'reset']
+        self._ext_commands = ['exit', 'help', 'ban', 'unban', 'banned', 'vals', 'reset',
+                              'clear', 'cli_locales', 'true', 'false']
         self._save_file = save_file
         self._bans_file = bans_file
 
@@ -115,6 +116,8 @@ class LiveSettings(BaseSettings):
         BaseSettings.save_settings_to_file(self._save_file)
         self.load_settings_from_file()
 
+    def get_supported_cli_locales(self):
+        return self._locale_dict.keys()
 
 
 
