@@ -77,7 +77,9 @@ class LiveSettings(BaseSettings):
         return res
 
     def translate_param(self, param_name) -> str:
-        locale_dict = self.locale_dict.get(self.cli_locale, 'en')
-        return locale_dict[param_name]
+        try:
+            return self.locale_dict[self.cli_locale][param_name]
+        except KeyError:
+            return param_name
 
 
