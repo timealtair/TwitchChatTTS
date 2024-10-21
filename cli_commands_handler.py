@@ -3,6 +3,7 @@ from pprint import pprint
 from threading import Event
 from ai_streamer_lib import ConsoleAutoCompleter
 from live_settings import LiveSettings
+from typing import Callable
 
 
 class CliCommandsHandler(ConsoleAutoCompleter):
@@ -10,7 +11,7 @@ class CliCommandsHandler(ConsoleAutoCompleter):
     Run in separate thread, locks forever in input loop.
     1st arg = settings
     """
-    def __init__(self, settings: LiveSettings, stop_event: Event, clear_chat_func: function):
+    def __init__(self, settings: LiveSettings, stop_event: Event, clear_chat_func: Callable):
         self._settings = settings
         self._stop_event = stop_event
         self._clear_chat_func = clear_chat_func
