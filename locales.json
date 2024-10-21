@@ -1,0 +1,20 @@
+{
+    "en": {
+        "twitch_read_firsts": "read_chat_from_start",
+        "twitch_print_messages": "show_chat_messages",
+        "twitch_should_filter": "filter_bad_words",
+        "twitch_censore_by": "filter_with",
+        "twitch_remove_censored": "remove_filtered_messages",
+        "twitch_channel": "channel_to_read_chat_on",
+        "twitch_disable": "pause_chat_read",
+        "tts_min_pause": "seconds_to_wait_after_message",
+        "tts_lang": "chat_language",
+        "replace_links_with": "replace_links_with",
+        "skip_answers": "skip_answer_messages_(@user_name)",
+        "cli_locale": "console_language"
+    },
+    "ru": {
+        "key": "val",
+        "key2": "val2"
+    }
+}

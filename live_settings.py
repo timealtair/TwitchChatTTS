@@ -11,7 +11,6 @@ class LiveSettings(BaseSettings):
         self.twitch_remove_censored = False
         self.twitch_channel = 'betboom_ru'
         self.twitch_censore_by = '*'
-        self.twitch_replace_ban_word_dict = None
         self.twitch_disable = False
 
         self.tts_min_pause = 2
@@ -22,6 +21,7 @@ class LiveSettings(BaseSettings):
         self.cli_locale = 'en'
         self.locale_dict = self.load_locales(locale_json_fn)
 
+        self._twitch_replace_ban_word_dict = None
         self._banned_users = {'nightbot'}
         self._concatenate_func = self.clean_msg
 
