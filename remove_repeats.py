@@ -17,22 +17,15 @@ def _chunk_list(lst, n):
 
 
 def remove_repeats(text: str) -> str:
-    logging.debug('func atr text=%r', text)
     words = text.split()
-    logging.debug('after split words=%r', words)
     max_seq = len(words) // 2
-    logging.debug('calc max_seq=%r', max_seq)
     for seq_len in range(1, max_seq+1):
-        logging.debug('seq_len=%r', seq_len)
         words = [' '.join(chunk) for chunk in _chunk_list(words, seq_len)]
-        logging.debug('after chunk_list func words=%r', words)
         words = _remove_repeats_list(words)
-        logging.debug('after _remove_repeats_list words=%r', words)
         text = ' '.join(words)
         words = text.split()
 
     if len(words) == 1:
-        logging.debug('returning %r cas len(words)=1', words[0])
         return words[0]
     return ' '.join((words[0], remove_repeats(' '.join(words[1:]))))
 
