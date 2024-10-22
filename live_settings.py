@@ -2,6 +2,7 @@ from ai_streamer_lib import BaseSettings
 import re
 import json
 import yaml
+from remove_repeats import remove_repeats
 
 
 class LiveSettings(BaseSettings):
@@ -67,14 +68,7 @@ class LiveSettings(BaseSettings):
 
     @staticmethod
     def remove_repeat_words(text: str) -> str:
-        words = text.split()
-        res = []
-        last_word = ''
-        for word in words:
-            if word != last_word:
-                res.append(word)
-            last_word = word
-        return ' '.join(res)
+        return remove_repeats(text)
 
     def clean_msg(self, usr: str, msg: str) -> str:
         if usr in self._banned_users or msg.startswith('!'):
