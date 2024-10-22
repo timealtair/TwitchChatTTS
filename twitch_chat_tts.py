@@ -31,6 +31,8 @@ async def read_chat_loop(reader, settings, stop_event):
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.WARN)
+
     tokens_file = 'tokens.json'
     locale_json_fn = 'locales.json'
     settings_fn = 'settings.json'
