@@ -10,6 +10,7 @@
         "twitch_disable": "pause_chat_read",
         "tts_min_pause": "seconds_to_wait",
         "tts_lang": "chat_language",
+        "tts_langs": "chat_languages",
         "replace_links_with": "replace_links_with",
         "skip_answers": "remove_answers",
         "cli_locale": "console_language",
@@ -45,7 +46,8 @@
         "help_reset": "Resets all settings beside channel to read chat on and banned users list",
         "help_clear": "Clears all collected messages.",
         "help_skip": "Skips currents message, that is voicing.",
-        "help_quick_setup": "The same setup as in if it's first time run, creates 'token_filename_backup.json with old data.",
+        "help_quick_setup": "The same setup as in if it's first time run.\nCreates 'token_filename_backup_{time}.json with old data in 'backups' directory.",
+        "help_tts_langs": "Shows all available languages for tts, use primary language of your chat.",
         "help_true": "'true' can be used for autocomplete.",
         "help_false": "'false' can be used for autocomplete.",
         "unknown_command": "Unknown command '{}'\nClick 'TAB' to see available command. Or enter 'help' to get more info.",
@@ -76,6 +78,7 @@
         "get_locales": "\nAvailable Twitch chat languages:",
         "get_locales_choose": "Please choose primary language of your Twitch chat ('en'): ",
         "get_locales_error": "Incorrect language format '{}' valid examples: en, ru, de, fr, ja",
-        "startup_done": "\nCongrats, you've with first run set up, if you'll need it again use '{}' command."
+        "startup_done": "\nCongrats, you've with first run set up, if you'll need it again use '{}' command.",
+        "quick_setup_warn": "\nRunning this option will delete current Twitch token form current config.\nIt will be saved to to directory 'backups' with current time in filename.\nAre you sure you want to continue? ('yes'/'no' <- default): "
     }
 }

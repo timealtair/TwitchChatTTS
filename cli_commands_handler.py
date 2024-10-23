@@ -1,9 +1,14 @@
+import os.path
 import sys
+import shutil
 from pprint import pprint
 from threading import Event
 from ai_streamer_lib import ConsoleAutoCompleter
 from live_settings import LiveSettings
 from typing import Callable
+from os import PathLike
+from datetime import datetime
+from first_run_setup import fist_run_setup
 
 
 class CliCommandsHandler(ConsoleAutoCompleter):
@@ -12,11 +17,14 @@ class CliCommandsHandler(ConsoleAutoCompleter):
     1st arg = settings
     """
     def __init__(self, settings: LiveSettings, stop_event: Event,
-                 clear_chat_func: Callable, stop_tts_func: Callable):
+                 clear_chat_func: Callable, stop_tts_func: Callable,
+                 _tokens_file: PathLike | str, get_locales_func: Callable):
         self._settings = settings
         self._stop_event = stop_event
         self._clear_chat_func = clear_chat_func
         self._stop_tts_func = stop_tts_func
+        self._tokens_file = _tokens_file
+        self._get_locales_func = get_locales_func
 
         cmds = self._settings._ext_commands + settings.get_names()
         cmds = [settings.translate_param(cmd) for cmd in cmds]
@@ -46,6 +54,22 @@ class CliCommandsHandler(ConsoleAutoCompleter):
     def clear_twitch_messages(self):
         self._clear_chat_func()
 
+    def move_tokens_file_to_backup(self):
+        dir_name = 'backups'
+        if not os.path.isdir(dir_name):
+            os.mkdir(dir_name)
+        file_name, ext = os.path.splitext(self._tokens_file)
+        current_time = datetime.now().strftime("%Y_%m_%d__%H_%M_%S_%f")[:-4]
+        backup_file_name = f'{file_name}_backup__{current_time}{ext}'
+        dist = os.path.join(dir_name, backup_file_name)
+        shutil.move(self._tokens_file, dist)
+
+    def quick_setup(self) -> None:
+        answer = input(self._settings.translate_param('quick_setup_warn')).lower()
+        if answer == 'y' or answer == 'yes':
+            self.move_tokens_file_to_backup()
+            fist_run_setup(self._settings, self._tokens_file, self._get_locales_func)
+
     def extended_cmds_handle(self, cmd: str, args: str, raw_cmd: str) -> None:
         match cmd:
             case 'exit':
@@ -72,6 +96,10 @@ class CliCommandsHandler(ConsoleAutoCompleter):
                 pprint(self._settings.get_supported_cli_locales())
             case 'skip':
                 self._stop_tts_func()
+            case 'quick_setup':
+                self.quick_setup()
+            case 'tts_langs':
+                pprint(self._get_locales_func())
             case _:
                 self.unknown_cmd_print(raw_cmd)
 

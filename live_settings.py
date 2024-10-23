@@ -27,8 +27,8 @@ class LiveSettings(BaseSettings):
         self._twitch_replace_ban_word_dict = None
         self._banned_users = {'nightbot'}
         self._concatenate_func = self.clean_msg
-        self._ext_commands = ['exit', 'help', 'ban', 'unban', 'banned', 'vals', 'reset',
-                              'clear', 'cli_locales', 'skip', 'true', 'false']
+        self._ext_commands = ['exit', 'help', 'ban', 'unban', 'banned', 'vals', 'reset', 'tts_langs',
+                              'clear', 'cli_locales', 'quick_setup', 'skip', 'true', 'false']
         self._save_file = save_file
         self._bans_file = bans_file
 
