@@ -1,5 +1,6 @@
 import time
 from gtts import gTTS
+from gtts.lang import tts_langs
 import io
 import logging
 import asyncio
@@ -10,7 +11,7 @@ import pygame
 pygame.mixer.init()
 
 
-async def speak_text(text, lang='ru'):
+async def speak_text(text, lang='ru') -> None:
     try:
         mp3_fp = io.BytesIO()
 
@@ -32,8 +33,12 @@ async def speak_text(text, lang='ru'):
         logging.error(f"An error occurred: {e}")
 
 
-def stop_speak():
+def stop_speak() -> None:
     pygame.mixer.music.stop()
+
+
+def get_locales() -> dict:
+    return tts_langs()
 
 
 async def main():

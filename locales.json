@@ -21,6 +21,7 @@
         "reset": "reset_settings",
         "clear": "clear_messages",
         "skip": "skip_message",
+        "quick_setup": "quick_setup",
         "help": "help",
         "help_help": "To see help about any parameter, use 'help param_name'",
         "help_exit": "Wanna exit? Just type it.",
@@ -44,6 +45,7 @@
         "help_reset": "Resets all settings beside channel to read chat on and banned users list",
         "help_clear": "Clears all collected messages.",
         "help_skip": "Skips currents message, that is voicing.",
+        "help_quick_setup": "The same setup as in if it's first time run, creates 'token_filename_backup.json with old data.",
         "help_true": "'true' can be used for autocomplete.",
         "help_false": "'false' can be used for autocomplete.",
         "unknown_command": "Unknown command '{}'\nClick 'TAB' to see available command. Or enter 'help' to get more info.",
@@ -60,6 +62,7 @@
         "check_twitch_server_success": "Connected successfully!",
         "check_twitch_server_failed": "Can't connect to Twitch sever, please try to fix it then press 'ENTER' to check again.",
         "get_token": "\nEnter valid Twitch OAUTH token: ",
+        "get_token_valid": "Trying to authorize, please wait for result. (max time: 10 seconds)",
         "get_token_invalid": "Token is invalid, authentication failed.",
         "get_token_timeout": "Can't receive answer from server in specified time.",
         "get_token_success": "Successfully connected via token!",
@@ -69,6 +72,10 @@
         "get_channel": "\nEnter Twitch channel name to read chat on or click 'ENTER' for default ('{}'): ",
         "get_channel_error": "Channel name '{}' is invalid, valid examples: channel, channel_name",
         "get_wait_secs": "\nBasic config is done. Few more steps left.\nEnter seconds to wait after message read ({}): ",
-        "get_wait_secs_error": "Seconds value {} is invalid, valid examples: 0, 5, 5.0 2.5"
+        "get_wait_secs_error": "Seconds value {} is invalid, valid examples: 0, 5, 5.0 2.5",
+        "get_locales": "\nAvailable Twitch chat languages:",
+        "get_locales_choose": "Please choose primary language of your Twitch chat ('en'): ",
+        "get_locales_error": "Incorrect language format '{}' valid examples: en, ru, de, fr, ja",
+        "startup_done": "\nCongrats, you've with first run set up, if you'll need it again use '{}' command."
     }
 }

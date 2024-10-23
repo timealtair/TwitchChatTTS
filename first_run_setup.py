@@ -8,6 +8,8 @@ from os import PathLike
 import os.path
 import socket
 import re
+from pprint import pprint
+from typing import Callable
 
 
 TOKENS_GEN_SITES = (r'https://twitchtokengenerator.com/?scope=chat:read&auth=auth_stay',)
@@ -110,6 +112,7 @@ def _validate_token_get_channel(token: str, settings: LiveSettings) -> (bool, st
     token = f'oauth:{token}'
     nickname = 'test'
     channel = ''
+    print(settings.translate_param('get_token_valid'))
     try:
         soc = socket.socket()
         soc.settimeout(10)
@@ -170,7 +173,7 @@ def _get_wait_secs(settings: LiveSettings) -> float:
     secs = '?'
     while True:
         try:
-            secs = input(settings.translate_param('get_wait_secs'))
+            secs = input(settings.translate_param('get_wait_secs').format(settings.tts_min_pause))
             if not secs:
                 return float(settings.tts_min_pause)
             return float(secs)
@@ -178,7 +181,24 @@ def _get_wait_secs(settings: LiveSettings) -> float:
             print(settings.translate_param('get_wait_secs_error').format(secs), file=sys.stderr)
 
 
-def fist_run_setup(settings: LiveSettings, tokens_fn: PathLike | str) -> None:
+def _get_gtts_locales(settings: LiveSettings, get_locales_func: Callable) -> str:
+    locales = get_locales_func()
+    print(settings.translate_param('get_locales'))
+    pprint(locales)
+    while True:
+        lang = input(settings.translate_param('get_locales_choose'))
+        if not lang:
+            return 'en'
+        if lang in locales:
+            return lang
+        print(settings.translate_param('get_locales_error').format(lang), file=sys.stderr)
+
+
+def _setup_done(settings: LiveSettings) -> None:
+    print(settings.translate_param('startup_done').format(settings.translate_param('quick_setup')))
+
+
+def fist_run_setup(settings: LiveSettings, tokens_fn: PathLike | str, get_locales_func: Callable) -> None:
     if os.path.isfile(tokens_fn):
         return
     _locale_setup(settings)
@@ -189,4 +209,6 @@ def fist_run_setup(settings: LiveSettings, tokens_fn: PathLike | str) -> None:
     _write_json(tokens_fn, nickname, token)
     settings.twitch_channel = _get_channel(settings, channel)
     settings.tts_min_pause = _get_wait_secs(settings)
+    settings.tts_lang = _get_gtts_locales(settings, get_locales_func)
+    _setup_done(settings)
 

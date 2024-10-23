@@ -3,7 +3,7 @@ import threading
 import logging
 
 from ai_streamer_lib import TwitchChatReader
-from gtts_realtime import speak_text, stop_speak
+from gtts_realtime import speak_text, stop_speak, get_locales
 from live_settings import LiveSettings
 from cli_commands_handler import CliCommandsHandler
 from first_run_setup import fist_run_setup
@@ -41,7 +41,7 @@ if __name__ == '__main__':
 
     settings = LiveSettings(locale_json_fn, settings_fn, bans_fn)
     settings.load_settings_from_file()
-    fist_run_setup(settings, tokens_file)
+    fist_run_setup(settings, tokens_file, get_locales)
     stop_event = threading.Event()
     threads = []
     reader = TwitchChatReader(tokens_file, settings, stop_event, threads)
