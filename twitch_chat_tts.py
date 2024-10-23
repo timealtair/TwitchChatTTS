@@ -3,7 +3,7 @@ import threading
 import logging
 
 from ai_streamer_lib import TwitchChatReader
-from gtts_realtime import speak_text
+from gtts_realtime import speak_text, stop_speak
 from live_settings import LiveSettings
 from cli_commands_handler import CliCommandsHandler
 
@@ -43,7 +43,9 @@ if __name__ == '__main__':
     stop_event = threading.Event()
     threads = []
     reader = TwitchChatReader(tokens_file, settings, stop_event, threads)
-    threading.Thread(target=CliCommandsHandler, args=(settings, stop_event, reader.clear_all)).start()
+    threading.Thread(target=CliCommandsHandler, args=(settings, stop_event,
+                                                      reader.clear_all,
+                                                      stop_speak)).start()
 
     try:
         asyncio.run(read_chat_loop(reader, settings, stop_event))

@@ -11,10 +11,12 @@ class CliCommandsHandler(ConsoleAutoCompleter):
     Run in separate thread, locks forever in input loop.
     1st arg = settings
     """
-    def __init__(self, settings: LiveSettings, stop_event: Event, clear_chat_func: Callable):
+    def __init__(self, settings: LiveSettings, stop_event: Event,
+                 clear_chat_func: Callable, stop_tts_func: Callable):
         self._settings = settings
         self._stop_event = stop_event
         self._clear_chat_func = clear_chat_func
+        self._stop_tts_func = stop_tts_func
 
         cmds = self._settings._ext_commands + settings.get_names()
         cmds = [settings.translate_param(cmd) for cmd in cmds]
@@ -69,6 +71,8 @@ class CliCommandsHandler(ConsoleAutoCompleter):
                 self.clear_twitch_messages()
             case 'cli_locales':
                 pprint(self._settings.get_supported_cli_locales())
+            case 'skip':
+                self._stop_tts_func()
             case _:
                 self.unknown_cmd_print(cmd)
 

@@ -32,6 +32,10 @@ async def speak_text(text, lang='ru'):
         logging.error(f"An error occurred: {e}")
 
 
+def stop_speak():
+    pygame.mixer.music.stop()
+
+
 async def main():
     logging.basicConfig(level=logging.WARN)
 

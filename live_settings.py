@@ -28,7 +28,7 @@ class LiveSettings(BaseSettings):
         self._banned_users = {'nightbot'}
         self._concatenate_func = self.clean_msg
         self._ext_commands = ['exit', 'help', 'ban', 'unban', 'banned', 'vals', 'reset',
-                              'clear', 'cli_locales', 'true', 'false']
+                              'clear', 'cli_locales', 'skip', 'true', 'false']
         self._save_file = save_file
         self._bans_file = bans_file
 
