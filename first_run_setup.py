@@ -199,8 +199,16 @@ def _setup_done(settings: LiveSettings) -> None:
     print(settings.translate_param('startup_done').format(settings.translate_param('quick_setup')))
 
 
+def _get_token(token_fn) -> str:
+    with open(token_fn) as f:
+        data = json.load(f)
+    return data['token'].replace('oauth:', '')
+
+
 def fist_run_setup(settings: LiveSettings, tokens_fn: PathLike | str, get_locales_func: Callable) -> None:
     if os.path.isfile(tokens_fn):
+        print()
+        _validate_token_get_channel(_get_token(tokens_fn), settings)
         return
     _locale_setup(settings)
     _token_sites_example(settings)

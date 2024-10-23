@@ -33,7 +33,7 @@ async def read_chat_loop(reader, settings, stop_event):
 
 if __name__ == '__main__':
     locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
-    logging.basicConfig(level=logging.WARN)
+    logging.basicConfig(level=logging.CRITICAL)
 
     tokens_file = 'tokens.json'
     locale_json_fn = 'locales.json'
