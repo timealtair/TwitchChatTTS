@@ -1,0 +1,10 @@
+*/
+*.txt
+.*
+*.exe
+*.json
+*.yml
+
+!requirements.txt
+!locales.json
+!.gitignore
