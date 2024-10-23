@@ -166,6 +166,18 @@ def _get_channel(settings: LiveSettings, default_channel: str) -> str:
         print(settings.translate_param('get_channel_error').format(channel), file=sys.stderr)
 
 
+def _get_wait_secs(settings: LiveSettings) -> float:
+    secs = '?'
+    while True:
+        try:
+            secs = input(settings.translate_param('get_wait_secs'))
+            if not secs:
+                return float(settings.tts_min_pause)
+            return float(secs)
+        except ValueError:
+            print(settings.translate_param('get_wait_secs_error').format(secs), file=sys.stderr)
+
+
 def fist_run_setup(settings: LiveSettings, tokens_fn: PathLike | str) -> None:
     if os.path.isfile(tokens_fn):
         return
@@ -176,4 +188,5 @@ def fist_run_setup(settings: LiveSettings, tokens_fn: PathLike | str) -> None:
     nickname = _get_nickname(settings)
     _write_json(tokens_fn, nickname, token)
     settings.twitch_channel = _get_channel(settings, channel)
+    settings.tts_min_pause = _get_wait_secs(settings)
 

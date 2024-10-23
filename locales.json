@@ -67,6 +67,8 @@
         "get_nickname": "\nEnter nickname for chat reading bot in format: english_letters (will be displayed in chat): ",
         "get_nickname_error": "Nickname '{}' is invalid, valid examples: nickname, nick_name",
         "get_channel": "\nEnter Twitch channel name to read chat on or click 'ENTER' for default ('{}'): ",
-        "get_channel_error": "Channel name '{}' is invalid, valid examples: channel, channel_name"
+        "get_channel_error": "Channel name '{}' is invalid, valid examples: channel, channel_name",
+        "get_wait_secs": "\nBasic config is done. Few more steps left.\nEnter seconds to wait after message read ({}): ",
+        "get_wait_secs_error": "Seconds value {} is invalid, valid examples: 0, 5, 5.0 2.5"
     }
 }
