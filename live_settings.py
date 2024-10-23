@@ -112,6 +112,3 @@ class LiveSettings(BaseSettings):
 
     def get_supported_cli_locales(self) -> list:
         return list(self._locale_dict.keys())
-
-
-
