@@ -59,6 +59,14 @@
         "check_twitch_server_try": "Trying to connect, please wait for result. (max time: 10 seconds)",
         "check_twitch_server_success": "Connected successfully!",
         "check_twitch_server_failed": "Can't connect to Twitch sever, please try to fix it then press 'ENTER' to check again.",
-        "get_token": "\nNow enter valid Twitch OAUTH token: "
+        "get_token": "\nEnter valid Twitch OAUTH token: ",
+        "get_token_invalid": "Token is invalid, authentication failed.",
+        "get_token_timeout": "Can't receive answer from server in specified time.",
+        "get_token_success": "Successfully connected via token!",
+        "get_token_gai_error": "Error while connecting to server, looks like no internet access.",
+        "get_nickname": "\nEnter nickname for chat reading bot in format: english_letters (will be displayed in chat): ",
+        "get_nickname_error": "Nickname '{}' is invalid, valid examples: nickname, nick_name",
+        "get_channel": "\nEnter Twitch channel name to read chat on or click 'ENTER' for default ('{}'): ",
+        "get_channel_error": "Channel name '{}' is invalid, valid examples: channel, channel_name"
     }
 }

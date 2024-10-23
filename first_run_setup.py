@@ -7,6 +7,7 @@ import logging
 from os import PathLike
 import os.path
 import socket
+import re
 
 
 TOKENS_GEN_SITES = (r'https://twitchtokengenerator.com/?scope=chat:read&auth=auth_stay',)
@@ -100,11 +101,69 @@ def _check_twitch_server_access(settings: LiveSettings) -> None:
             input()
 
 
-def _get_token(settings: LiveSettings) -> str:
-    print(settings.translate_param('get_token'),  end='', flush=True)
+def _get_channel_from_answer(answer: str) -> str:
+    match = re.search(r'\d+ (\S+) :', answer)
+    return match.group(1) if match else ''
+
+
+def _validate_token_get_channel(token: str, settings: LiveSettings) -> (bool, str):
+    token = f'oauth:{token}'
+    nickname = 'test'
+    channel = ''
+    try:
+        soc = socket.socket()
+        soc.settimeout(10)
+        soc.connect((TWITCH_SERVER, TWITCH_PORT))
+        soc.send(f'PASS {token}\n'.encode('utf-8'))
+        soc.send(f'NICK {nickname}\n'.encode('utf-8'))
+        soc.send(f'JOIN #{channel}\n'.encode('utf-8'))
+        answer = soc.recv(2048).decode('utf-8')
+        if 'Login authentication failed' in answer:
+            print(settings.translate_param('get_token_invalid'), file=sys.stderr)
+        if '001' in answer:
+            print(settings.translate_param('get_token_success'))
+            channel = _get_channel_from_answer(answer)
+            return True, channel
+    except TimeoutError:
+        print(settings.translate_param('get_token_timeout'), file=sys.stderr)
+    except socket.gaierror:
+        print(settings.translate_param('get_token_gai_error'), file=sys.stderr)
+
+    return False, ''
+
+
+def _get_token_and_channel(settings: LiveSettings) -> (str, str):
     while True:
+        print(settings.translate_param('get_token'), end='', flush=True)
         token = input()
-    pass
+        valid, channel = _validate_token_get_channel(token, settings)
+        if valid:
+            break
+    return token, channel
+
+
+def _is_valid_name(name: str) -> bool:
+    if name.isascii() and name.replace('_', '').isalpha():
+        return True
+    return False
+
+
+def _get_nickname(settings: LiveSettings) -> str:
+    while True:
+        nickname = input(settings.translate_param('get_nickname'))
+        if _is_valid_name(nickname):
+            return nickname.lower()
+        print(settings.translate_param('get_nickname_error').format(nickname), file=sys.stderr)
+
+
+def _get_channel(settings: LiveSettings, default_channel: str) -> str:
+    while True:
+        channel = input(settings.translate_param('get_channel').format(default_channel))
+        if not channel:
+            return default_channel
+        if _is_valid_name(channel):
+            return channel.lower()
+        print(settings.translate_param('get_channel_error').format(channel), file=sys.stderr)
 
 
 def fist_run_setup(settings: LiveSettings, tokens_fn: PathLike | str) -> None:
@@ -113,5 +172,8 @@ def fist_run_setup(settings: LiveSettings, tokens_fn: PathLike | str) -> None:
     _locale_setup(settings)
     _token_sites_example(settings)
     _check_twitch_server_access(settings)
-    token = _get_token(settings)
+    token, channel = _get_token_and_channel(settings)
+    nickname = _get_nickname(settings)
+    _write_json(tokens_fn, nickname, token)
+    settings.twitch_channel = _get_channel(settings, channel)
 
