@@ -185,10 +185,11 @@ def _get_gtts_locales(settings: LiveSettings, get_locales_func: Callable) -> str
     locales = get_locales_func()
     print(settings.translate_param('get_locales'))
     pprint(locales)
+    default_lang = settings.cli_locale if settings.cli_locale in locales else 'en'
     while True:
-        lang = input(settings.translate_param('get_locales_choose'))
+        lang = input(settings.translate_param('get_locales_choose').format(default_lang))
         if not lang:
-            return 'en'
+            return default_lang
         if lang in locales:
             return lang
         print(settings.translate_param('get_locales_error').format(lang), file=sys.stderr)

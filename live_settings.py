@@ -88,7 +88,7 @@ class LiveSettings(BaseSettings):
     @staticmethod
     def load_locales(json_fn) -> dict:
         res = {}
-        with open(json_fn) as f:
+        with open(json_fn, encoding='utf-8') as f:
             d = json.load(f)
         for locale in d:
             res[locale] = {}

@@ -1,7 +1,7 @@
 import asyncio
 import threading
 import logging
-
+import locale
 from ai_streamer_lib import TwitchChatReader
 from gtts_realtime import speak_text, stop_speak, get_locales
 from live_settings import LiveSettings
@@ -32,6 +32,7 @@ async def read_chat_loop(reader, settings, stop_event):
 
 
 if __name__ == '__main__':
+    locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
     logging.basicConfig(level=logging.WARN)
 
     tokens_file = 'tokens.json'
