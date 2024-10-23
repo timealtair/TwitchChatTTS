@@ -46,10 +46,18 @@
         "help_skip": "Skips currents message, that is voicing.",
         "help_true": "'true' can be used for autocomplete.",
         "help_false": "'false' can be used for autocomplete.",
-        "welcome": "\n> Twitch channel: <{}>. Chat language: <{}>.\n> Wait time: <{}> seconds. Cli language: <{}>.\n\n> Click \"TAB\" button for commands list and autocomplete.\n> Use \"help\" if you need any help.\n"
-    },
-    "ru": {
-        "help": "справка",
-        "help_help": "Чтобы увидеть справку по любому параметру, используйте команду 'справка имя_параметра'"
+        "welcome": "\n> Twitch channel: <{}>. Chat language: <{}>.\n> Wait time: <{}> seconds. Cli language: <{}>.\n\n> Click \"TAB\" button for commands list and autocomplete.\n> Use \"help\" if you need any help.\n",
+        "startup_lang": "\nHello, this program supports these console languages: {}\nPlease choose one ('{}'): ",
+        "startup_lang_error": "Unsupported language '{}', choose one of {}\nOr click 'ENTER' to use default ('{}'): ",
+        "startup_token": "\nFor low resource chat reading you need to specify OAUTH Twitch token with 'chat:read' permission.\nFor example you can get it on these sites:\n{}",
+        "startup_token_open": "\nWould you like to open one of sites?\nEnter it's number or click 'ENTER' to skip ('no'): ",
+        "startup_no": "no",
+        "startup_token_open_error": "Incorrect site number {} Try again or click 'ENTER' to skip.",
+        "startup_token_browser_error": "Can't open browser, skipping...",
+        "check_twitch_server": "\nNow checking connecting to Twitch server.",
+        "check_twitch_server_try": "Trying to connect, please wait for result. (max time: 10 seconds)",
+        "check_twitch_server_success": "Connected successfully!",
+        "check_twitch_server_failed": "Can't connect to Twitch sever, please try to fix it then press 'ENTER' to check again.",
+        "get_token": "\nNow enter valid Twitch OAUTH token: "
     }
 }

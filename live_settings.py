@@ -110,8 +110,8 @@ class LiveSettings(BaseSettings):
         BaseSettings.save_settings_to_file(self._save_file)
         self.load_settings_from_file()
 
-    def get_supported_cli_locales(self) -> str:
-        return ', '.join(self._locale_dict.keys())
+    def get_supported_cli_locales(self) -> list:
+        return list(self._locale_dict.keys())
 
 
 
