@@ -76,7 +76,7 @@ class CliCommandsHandler(ConsoleAutoCompleter):
                 self._stop_event.set()
                 raise SystemExit
             case 'help':
-                help_for = args if args else cmd
+                help_for = args if args else self._settings.translate_param(cmd)
                 self.help_text_print(help_for)
             case 'ban':
                 self._settings.ban_username(args)

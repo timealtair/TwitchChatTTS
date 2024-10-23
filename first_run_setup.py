@@ -211,5 +211,6 @@ def fist_run_setup(settings: LiveSettings, tokens_fn: PathLike | str, get_locale
     settings.twitch_channel = _get_channel(settings, channel)
     settings.tts_min_pause = _get_wait_secs(settings)
     settings.tts_lang = _get_gtts_locales(settings, get_locales_func)
+    settings.save_settings_to_file()
     _setup_done(settings)
 
