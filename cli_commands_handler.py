@@ -36,9 +36,8 @@ class CliCommandsHandler(ConsoleAutoCompleter):
         args = ' '.join(args).lower().strip('\'"')
         return cmd, args
 
-    @staticmethod
-    def unknown_cmd_print(cmd) -> None:
-        print(f'>>> {cmd} ???', file=sys.stderr)
+    def unknown_cmd_print(self, cmd: str) -> None:
+        print(self._settings.translate_param('unknown_command').format(cmd), file=sys.stderr)
 
     def help_text_print(self, help_for) -> None:
         help_for = self._settings.translate_param(help_for)
@@ -47,7 +46,7 @@ class CliCommandsHandler(ConsoleAutoCompleter):
     def clear_twitch_messages(self):
         self._clear_chat_func()
 
-    def extended_cmds_handle(self, cmd: str, args: str) -> None:
+    def extended_cmds_handle(self, cmd: str, args: str, raw_cmd: str) -> None:
         match cmd:
             case 'exit':
                 self._stop_event.set()
@@ -74,7 +73,7 @@ class CliCommandsHandler(ConsoleAutoCompleter):
             case 'skip':
                 self._stop_tts_func()
             case _:
-                self.unknown_cmd_print(cmd)
+                self.unknown_cmd_print(raw_cmd)
 
     def execute_command(self, command):
         cmd, args = self.parse_cmd_args(command)
@@ -87,7 +86,7 @@ class CliCommandsHandler(ConsoleAutoCompleter):
             else:
                 pprint(self._settings[cmd])
         else:
-            self.extended_cmds_handle(cmd, args)
+            self.extended_cmds_handle(cmd, args, command)
 
     def welcome_print(self):
         msg = self._settings.translate_param('welcome')

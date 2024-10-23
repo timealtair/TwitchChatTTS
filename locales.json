@@ -46,6 +46,7 @@
         "help_skip": "Skips currents message, that is voicing.",
         "help_true": "'true' can be used for autocomplete.",
         "help_false": "'false' can be used for autocomplete.",
+        "unknown_command": "Unknown command '{}'\nClick 'TAB' to see available command. Or enter 'help' to get more info.",
         "welcome": "\n> Twitch channel: <{}>. Chat language: <{}>.\n> Wait time: <{}> seconds. Cli language: <{}>.\n\n> Click \"TAB\" button for commands list and autocomplete.\n> Use \"help\" if you need any help.\n",
         "startup_lang": "\nHello, this program supports these console languages: {}\nPlease choose one ('{}'): ",
         "startup_lang_error": "Unsupported language '{}', choose one of {}\nOr click 'ENTER' to use default ('{}'): ",
