@@ -1,6 +1,14 @@
 # TwitchChatTTS
 
+![GitHub License](https://img.shields.io/github/license/timealtair/TwitchChatTTS)
+![GitHub top language](https://img.shields.io/github/languages/top/timealtair/TwitchChatTTS)
+![Static Badge](https://img.shields.io/badge/platform-windows-brightgreen?color=blue)
+![Static Badge](https://img.shields.io/badge/platform-unix-brightgreen?color=blue)
+
+
+
 ## 🌟 Introduction
+
 
 This is low resorse consuming smart TTS for Twitch Chat.
 
