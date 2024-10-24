@@ -4,6 +4,8 @@
 
 This is low resorse consuming smart TTS for Twitch Chat.
 
+![DEMO:](https://github.com/timealtair/TwitchChatTTS/blob/main/demo.gif)
+
 ## 🗂️ Table of Contents
 - [Features](#features)
 - [Installation](#installation)
