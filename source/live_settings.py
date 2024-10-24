@@ -1,4 +1,4 @@
-from ai_streamer_lib import BaseSettings
+from base_settings import BaseSettings
 import re
 import json
 import yaml

@@ -3,4 +3,5 @@ pygame~=2.6.1
 better-profanity
 pyreadline3
 pyyaml
+pyinstaller
 

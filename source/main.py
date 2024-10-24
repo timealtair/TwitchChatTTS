@@ -2,7 +2,7 @@ import asyncio
 import threading
 import logging
 import locale
-from ai_streamer_lib import TwitchChatReader
+from twitch_chat_reader import TwitchChatReader
 from gtts_realtime import speak_text, stop_speak, get_locales
 from live_settings import LiveSettings
 from cli_commands_handler import CliCommandsHandler

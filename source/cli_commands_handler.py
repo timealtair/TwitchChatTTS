@@ -3,7 +3,7 @@ import sys
 import shutil
 from pprint import pprint
 from threading import Event
-from ai_streamer_lib import ConsoleAutoCompleter
+from console_auto_completer import ConsoleAutoCompleter
 from live_settings import LiveSettings
 from typing import Callable
 from os import PathLike
