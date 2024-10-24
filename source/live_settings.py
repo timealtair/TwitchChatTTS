@@ -31,12 +31,15 @@ class LiveSettings(BaseSettings):
                               'clear', 'cli_locales', 'quick_setup', 'skip', 'true', 'false']
         self._save_file = save_file
         self._bans_file = bans_file
+        self._load_commands_func = None
 
     def save_settings_to_file(self):
         BaseSettings.save_settings_to_file(self, self._save_file)
         data = yaml.safe_dump(self._banned_users)
         with open(self._bans_file, 'w') as f:
             f.write(data)
+        if self._load_commands_func:
+            self._load_commands_func()
 
     def load_settings_from_file(self):
         BaseSettings.load_settings_from_file(self, self._save_file)

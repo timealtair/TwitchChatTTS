@@ -26,13 +26,16 @@ class CliCommandsHandler(ConsoleAutoCompleter):
         self._tokens_file = _tokens_file
         self._get_locales_func = get_locales_func
 
-        cmds = self._settings._ext_commands + settings.get_names()
-        cmds = [settings.translate_param(cmd) for cmd in cmds]
+        ConsoleAutoCompleter.__init__(self)
+        self.load_commands()
+        self._settings._load_commands_func = self.load_commands
 
         self.welcome_print()
-
-        ConsoleAutoCompleter.__init__(self, cmds)
         self.run()
+
+    def load_commands(self):
+        cmds = self._settings._ext_commands + self._settings.get_names()
+        self.commands = [self._settings.translate_param(cmd) for cmd in cmds]
 
     def parse_cmd_args(self, cmd: str) -> (str, str):
         """
