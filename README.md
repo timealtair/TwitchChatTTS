@@ -1,13 +1,23 @@
 # TwitchChatTTS
 
+![GitHub License](https://img.shields.io/github/license/timealtair/TwitchChatTTS)
+![GitHub top language](https://img.shields.io/github/languages/top/timealtair/TwitchChatTTS)
+![Static Badge](https://img.shields.io/badge/platform-windows-brightgreen?color=blue)
+![Static Badge](https://img.shields.io/badge/platform-unix-brightgreen?color=blue)
+
+
+
 ## 🌟 Introduction
+
 
 This is low resorse consuming smart TTS for Twitch Chat.
 
+![DEMO:](https://github.com/timealtair/TwitchChatTTS/blob/main/demo.gif)
+
 ## 🗂️ Table of Contents
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
+- [Features](#-features)
+- [Installation](#-installation)
+- [Usage](#-usage)
 
 ## ✨ Features
 1. Use 'TAB' button for smart commands autocomplete
@@ -26,7 +36,7 @@ Windows:
 Unix:
 1. Clone the repository
    ```bash
-   git clone https://github.com/yourusername/repository-name.git
+   git clone https://github.com/timealtair/TwitchChatTTS.git
 2. Install requirements via python >= 3.10
    ```bash
    pip install -U -r requirements.txt
