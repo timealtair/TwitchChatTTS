@@ -36,7 +36,7 @@ Windows:
 Unix:
 1. Clone the repository
    ```bash
-   git clone https://github.com/yourusername/repository-name.git
+   git clone https://github.com/timealtair/TwitchChatTTS.git
 2. Install requirements via python >= 3.10
    ```bash
    pip install -U -r requirements.txt
