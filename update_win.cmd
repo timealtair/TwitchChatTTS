@@ -1,15 +1,14 @@
 @echo off
 
 :: Remove old temp dir if exists
-
-rm -rf ./temp
+if exist temp (
+    rmdir /S /Q temp
+)
 
 :: Make new temp dir
-
 mkdir temp
 
 :: Change current dir to temp
-
 cd temp
 
 :: Get latest update

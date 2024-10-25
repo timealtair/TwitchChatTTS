@@ -47,6 +47,6 @@ rm -rf ./temp
 
 :: Done
 
-echo Done, file save as TwitchChatTTS.exe
+echo Done, file saved as TwitchChatTTS.exe
 
 pause
