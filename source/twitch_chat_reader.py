@@ -125,6 +125,7 @@ class TwitchChatReader:
             groups = match.groups()
             logging.debug('groups=%r', groups)
             yield groups
+        yield '', ''
 
     def __read_messages(self):
         if self.__settings.twitch_should_filter:
