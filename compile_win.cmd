@@ -33,9 +33,13 @@ python-3.10.0-embed-amd64\Scripts\pip.exe install -U -r ..\requirements.txt
 :: Create an executable for main.py
 python-3.10.0-embed-amd64\Scripts\PyInstaller.exe --onefile --name TwitchChatTTS.exe --icon=../source/twitch_chat_tts.ico ../source/main.py
 
+:: Delete old TwitchChatTTS.exe
+
+del ..\TwitchChatTTS.exe
+
 :: Move TwitchChatTTS.exe to base directory
 
-mv -f dist\TwitchChatTTS.exe ..\TwitchChatTTS.exe
+Move dist\TwitchChatTTS.exe ..\TwitchChatTTS.exe
 
 :: Go to parent dir
 
