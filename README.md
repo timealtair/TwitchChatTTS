@@ -50,3 +50,5 @@ Unix:
 3. Folow instuction for first run config
 4. Done!
 
+5. To get recent update and compile run update_win.cmd
+
