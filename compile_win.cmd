@@ -47,7 +47,7 @@ cd ..
 
 :: Remove temp dir
 
-rm -rf ./temp
+rmdir /S /Q temp
 
 :: Done
 
