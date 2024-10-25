@@ -35,10 +35,14 @@ python-3.10.0-embed-amd64\Scripts\PyInstaller.exe --onefile --name TwitchChatTTS
 
 :: Move TwitchChatTTS.exe to base directory
 
-Move dist\TwitchChatTTS.exe ..\TwitchChatTTS.exe
+mv -f dist\TwitchChatTTS.exe ..\TwitchChatTTS.exe
+
+:: Remove temp dir
+
+rm -rf ./temp
 
 :: Done
 
-echo Done, temporary files located in "temp" dir, feel free to delete
+echo Done, file save as TwitchChatTTS.exe
 
 pause
