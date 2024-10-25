@@ -168,6 +168,17 @@ class TwitchChatReader:
                 continue
 
             for user, cleaned_message in clean:
+                if not user:
+                    logging.warning('empty user')
+                    if empty_messages_occurrences < 10:
+                        empty_messages_occurrences += 1
+                        time.sleep(0.1)
+                        continue
+                    empty_messages_occurrences = 0
+                    logging.warning('empty user 10 time, reconnecting')
+                    self.__disconnect()
+                    self.__connect()
+                    time.sleep(0.1)
                 logging.debug('user=%r, cleaned_message=%r', user, cleaned_message)
 
                 if self.__settings.twitch_should_filter:
