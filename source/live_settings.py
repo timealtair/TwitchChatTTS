@@ -1,3 +1,5 @@
+import logging
+
 from base_settings import BaseSettings
 import re
 import json
@@ -84,6 +86,9 @@ class LiveSettings(BaseSettings):
                 return ''
             else:
                 msg = re.sub(r'@\w+', '', msg)
+        logging.debug('msg: %r', msg)
+        if not msg.strip():
+            return ''
         msg = self.remove_repeat_words(msg)
         msg = self.remove_links(msg)
         return msg
