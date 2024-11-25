@@ -9,6 +9,7 @@ from typing import Callable
 from os import PathLike
 from datetime import datetime
 from first_run_setup import fist_run_setup
+from logging_level_changer import logging_level_changer
 
 
 class CliCommandsHandler(ConsoleAutoCompleter):
@@ -103,6 +104,8 @@ class CliCommandsHandler(ConsoleAutoCompleter):
                 self.quick_setup()
             case 'tts_langs':
                 pprint(self._get_locales_func())
+            case 'logging_level':
+                logging_level_changer(self._settings)
             case _:
                 self.unknown_cmd_print(raw_cmd)
 
