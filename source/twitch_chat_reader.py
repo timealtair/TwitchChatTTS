@@ -102,11 +102,26 @@ class TwitchChatReader:
     def is_empty(self):
         return not len(self)
 
+    def _concatenate_same_user_msgs(self, usr_msg: tuple[str, str]):
+        if not self.__settings.twitch_concatenate_same_user_msgs:
+            return usr_msg
+        usr, msg = usr_msg
+        for_remove = []
+        for u, m in self.__chat_deque:
+            if u == usr:
+                for_remove.append((u, m))
+                msg += f'\n{m}'
+        for item in for_remove:
+            self.__chat_deque.remove(item)
+        return usr, msg
+
     def get_message_from_right_end(self):
-        return self.__chat_deque.pop()
+        usr_msg = self.__chat_deque.pop()
+        return self._concatenate_same_user_msgs(usr_msg)
 
     def get_message_from_left_end(self):
-        return self.__chat_deque.popleft()
+        usr_msg = self.__chat_deque.popleft()
+        return self._concatenate_same_user_msgs(usr_msg)
 
     def append_message(self, message):
         self.__chat_deque.append(message)
@@ -116,14 +131,19 @@ class TwitchChatReader:
 
     def clear_all(self):
         self.__chat_deque = deque()
-        
+
     def __clean_message_iter(self, message):
-        logging.debug('entering __clean_message_iter')
+        logging.debug('entering __clean_message_iter, message: %r', message)
+        if not message:
+            self.__disconnect()
+            self.__connect()
+            time.sleep(1)
+            logging.debug('reconnected cas empty answer from server')
+            return
+
         find_iter = self.__re_compile.finditer(message)
         for match in find_iter:
-            logging.debug('match=%r', match)
             groups = match.groups()
-            logging.debug('groups=%r', groups)
             yield groups
         yield '', ''
 
@@ -159,27 +179,12 @@ class TwitchChatReader:
                 time.sleep(2)
                 continue
 
-            logging.debug('raw=%r', resp)
             clean = self.__clean_message_iter(resp)
-            logging.debug('clean=%r', clean)
-            if not clean:
-                time.sleep(0.1)
-                logging.debug('sleeping')
-                continue
 
             for user, cleaned_message in clean:
                 if not user:
-                    logging.warning('empty user')
-                    if empty_messages_occurrences < 10:
-                        empty_messages_occurrences += 1
-                        time.sleep(0.1)
-                        continue
-                    empty_messages_occurrences = 0
-                    logging.warning('empty user 10 time, reconnecting')
-                    self.__disconnect()
-                    self.__connect()
                     time.sleep(0.1)
-                logging.debug('user=%r, cleaned_message=%r', user, cleaned_message)
+                    continue
 
                 if self.__settings.twitch_should_filter:
                     # noinspection PyUnboundLocalVariable
@@ -193,7 +198,6 @@ class TwitchChatReader:
                     if self.__settings.twitch_print_messages:
                         logging.info('%r: %r', user, cleaned_message)
                 else:
-                    logging.warn('filtered or empty msg, raw=%r', resp)
                     time.sleep(0.1)
 
 
@@ -208,10 +212,12 @@ if __name__ == '__main__':
             self.twitch_censore_by = '*'
             self.twitch_replace_ban_word_dict = None
             self.twitch_disable = False
+            self.twitch_concatenate_same_user_msgs = True
+
 
     settings = CustomSetting()
 
-    logging.basicConfig(level=logging.WARN)
+    logging.basicConfig(level=logging.WARNING)
     tokens_file = 'tokens.json'
     stop_event = threading.Event()
     threads = []

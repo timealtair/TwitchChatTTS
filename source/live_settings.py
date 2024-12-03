@@ -16,6 +16,7 @@ class LiveSettings(BaseSettings):
         self.twitch_channel = ''
         self.twitch_censore_by = '*'
         self.twitch_disable = False
+        self.twitch_concatenate_same_user_msgs = False
 
         self.tts_min_pause = 5
         self.tts_lang = 'ru'
@@ -116,7 +117,7 @@ class LiveSettings(BaseSettings):
         channel = self.twitch_channel
         self.__init__(self._locale_json_fn, self._save_file, self._bans_file)
         self.twitch_channel = channel
-        BaseSettings.save_settings_to_file(self._save_file)
+        BaseSettings.save_settings_to_file(self, self._save_file)
         self.load_settings_from_file()
 
     def get_supported_cli_locales(self) -> list:
