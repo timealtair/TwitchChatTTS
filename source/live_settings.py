@@ -16,7 +16,7 @@ class LiveSettings(BaseSettings):
         self.twitch_channel = ''
         self.twitch_censore_by = '*'
         self.twitch_disable = False
-        self.twitch_concatenate_same_user_msgs = False
+        self.twitch_merge_user_messages = False
 
         self.tts_min_pause = 5
         self.tts_lang = 'ru'
