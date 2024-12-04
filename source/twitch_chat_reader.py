@@ -162,7 +162,7 @@ class TwitchChatReader:
                 try:
                     self.__connect()
                 except socket.gaierror:
-                    logging.error('Can\'t connect to twitch chat. '
+                    logging.debug('Can\'t connect to twitch chat. '
                                   'Retrying in 2 secs...')
                     self.__sock = None
                     time.sleep(2)
