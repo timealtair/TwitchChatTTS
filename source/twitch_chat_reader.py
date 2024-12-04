@@ -103,7 +103,7 @@ class TwitchChatReader:
         return not len(self)
 
     def _concatenate_same_user_msgs(self, usr_msg: tuple[str, str]):
-        if not self.__settings.twitch_concatenate_same_user_msgs:
+        if not self.__settings.twitch_merge_user_messages:
             return usr_msg
         usr, msg = usr_msg
         for_remove = []
@@ -174,7 +174,7 @@ class TwitchChatReader:
             except TimeoutError:
                 continue
             except OSError:
-                logging.error('Can\'t receive message from twitch chat.',
+                logging.debug('Can\'t receive message from twitch chat. ', +
                               'Retrying in 2 secs')
                 time.sleep(2)
                 continue
@@ -212,7 +212,7 @@ if __name__ == '__main__':
             self.twitch_censore_by = '*'
             self.twitch_replace_ban_word_dict = None
             self.twitch_disable = False
-            self.twitch_concatenate_same_user_msgs = True
+            self.twitch_merge_user_messages = True
 
 
     settings = CustomSetting()
