@@ -170,7 +170,7 @@ class TwitchChatReader:
 
             try:
                 self.__handle_channel_change()
-                resp = self.__sock.recv(2048).decode('utf-8')
+                resp = self.__sock.recv(2048).decode('utf-8', 'ignore')
             except TimeoutError:
                 continue
             except OSError:
