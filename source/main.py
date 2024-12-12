@@ -32,27 +32,32 @@ async def read_chat_loop(reader, settings, stop_event):
 
 
 if __name__ == '__main__':
-    locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
-    logging.basicConfig(level=logging.CRITICAL)
-
-    tokens_file = 'tokens.json'
-    locale_json_fn = 'locales.json'
-    settings_fn = 'settings.json'
-    bans_fn = 'banned_users.yml'
-
-    settings = LiveSettings(locale_json_fn, settings_fn, bans_fn)
-    settings.load_settings_from_file()
-    fist_run_setup(settings, tokens_file, get_locales)
     stop_event = threading.Event()
-    threads = []
-    reader = TwitchChatReader(tokens_file, settings, stop_event, threads)
-    threading.Thread(target=CliCommandsHandler, args=(settings, stop_event,
-                                                      reader.clear_all,
-                                                      stop_speak,
-                                                      tokens_file,
-                                                      get_locales)).start()
-
     try:
+        locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+        logging.basicConfig(level=logging.CRITICAL)
+
+        tokens_file = 'tokens.json'
+        locale_json_fn = 'locales.json'
+        settings_fn = 'settings.json'
+        bans_fn = 'banned_users.yml'
+
+        settings = LiveSettings(locale_json_fn, settings_fn, bans_fn)
+        settings.load_settings_from_file()
+        fist_run_setup(settings, tokens_file, get_locales)
+        threads = []
+        reader = TwitchChatReader(tokens_file, settings, stop_event, threads)
+        threading.Thread(target=CliCommandsHandler, args=(settings, stop_event,
+                                                          reader.clear_all,
+                                                          stop_speak,
+                                                          tokens_file,
+                                                          get_locales)).start()
+
         asyncio.run(read_chat_loop(reader, settings, stop_event))
-    except (KeyboardInterrupt, SystemExit):
+    except (KeyboardInterrupt, EOFError, SystemExit):
+        pass
+    except Exception as e:
+        logging.error('Unexpected error while running: ', exc_info=e)
+        input('Press "ENTER" to exit: ')
+    finally:
         stop_event.set()

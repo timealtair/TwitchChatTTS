@@ -34,7 +34,10 @@ class ConsoleAutoCompleter:
     def get_input(self):
         readline.set_completer(self.autocomplete)
         readline.parse_and_bind('tab: complete')
-        user_input = input(self.prompt)
+        try:
+            user_input = input(self.prompt)
+        except Exception:
+            raise SystemExit
         return user_input
 
     def autocomplete(self, text, state):
