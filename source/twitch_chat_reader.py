@@ -177,7 +177,6 @@ class TwitchChatReader:
                 logging.debug('Can\'t receive message from twitch chat. ' +
                               'Retrying in 2 secs')
                 self.__disconnect()
-                self.__connect()
                 time.sleep(2)
                 continue
 
