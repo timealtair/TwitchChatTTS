@@ -22,6 +22,7 @@ class LiveSettings(BaseSettings):
         self.tts_lang = 'ru'
         self.replace_links_with = 'link'
         self.skip_answers = False
+        self.tts_voice_nicknames = False
 
         self.cli_locale = 'en'
         self._locale_dict = self.load_locales(locale_json_fn)

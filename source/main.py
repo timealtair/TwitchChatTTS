@@ -3,10 +3,13 @@ import threading
 import logging
 import locale
 from twitch_chat_reader import TwitchChatReader
-from gtts_realtime import speak_text, stop_speak, get_locales
+from gtts_realtime import (
+    speak_text, stop_speak, get_locales, generate_speech, play_speech
+)
 from live_settings import LiveSettings
 from cli_commands_handler import CliCommandsHandler
 from first_run_setup import fist_run_setup
+from concurrent.futures import ThreadPoolExecutor
 
 
 async def read_chat_loop(reader, settings, stop_event):
@@ -27,7 +30,19 @@ async def read_chat_loop(reader, settings, stop_event):
 
         if settings.twitch_print_messages:
             print(f'{usr}: {msg}')
-        await speak_text(txt, settings.tts_lang)
+        if settings.tts_voice_nicknames:
+            futures_list = []
+            with ThreadPoolExecutor() as executor:
+                futures_list.append(
+                    executor.submit(generate_speech, usr, lang='en')
+                )
+                futures_list.append(
+                    executor.submit(generate_speech, txt, lang=settings.tts_lang)
+                )
+            for future in futures_list:
+                await play_speech(future.result())
+        else:
+            await speak_text(txt, settings.tts_lang)
         await asyncio.sleep(settings.tts_min_pause)
 
 
