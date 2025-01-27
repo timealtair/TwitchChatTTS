@@ -88,7 +88,10 @@
         "quick_setup_warn": "\nRunning this option will delete current Twitch token form current config.\nIt will be saved to to directory 'backups' with current time in filename.\nAre you sure you want to continue? ('yes'/'no' <- default): ",
         "logging_setup_info": "\nYou can set one of 5 logging levels:\n1. debug\n2. info\n3. warning\n4. error\n5. critical\nCurrent level: {}\nEnter number 1-5 to select or click 'ENTER' to return: ",
         "logging_setup_cancel": "\nCanceled.",
-        "logging_setup_result": "Current logging level: {}"
+        "logging_setup_result": "Current logging level: {}",
+        "state_parameter_choice": "Parameter enabled: <{}>\nWanna switch to opposite? (yes/No): ",
+        "state_parameter_result_unchanged": "Canceled. Value hasn't changed.",
+        "state_parameter_result_value_set": "Value updated. New value: <{}>"
     },
     "ru": {
         "exit": "выход",
@@ -179,6 +182,9 @@
         "quick_setup_warn": "\nЗапуск этой опции удалит текущий токен Twitch из текущей конфигурации.\nОн будет сохранён в директории 'backups' с текущим временем в названии файла.\nВы уверены, что хотите продолжить? ('yes'/'no' <- по умолчанию): ",
         "logging_setup_info": "\nВы можете установить один из 5 уровней логирования:\n1. debug (отладка)\n2. info (информация)\n3. warning (предупреждения)\n4. error (ошибки)\n5. critical (критический)\nТекущий уровень: {}\nВведите число от 1 до 5 для выбора или нажмите 'ENTER' для возврата: ",
         "logging_setup_cancel": "\nОтменено.",
-        "logging_setup_result": "Текущий уровень логирования: {}"
+        "logging_setup_result": "Текущий уровень логирования: {}",
+        "state_parameter_choice": "Параметр включен: <{}>\nХотите изменить на противоположное? (yes/No): ",
+        "state_parameter_result_unchanged": "Отменено. Значение не поменялось.",
+        "state_parameter_result_value_set": "Значение обновлено. Новое значение: <{}>"
     }
 }

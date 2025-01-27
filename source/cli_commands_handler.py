@@ -10,6 +10,7 @@ from os import PathLike
 from datetime import datetime
 from first_run_setup import fist_run_setup
 from logging_level_changer import logging_level_changer
+from states_switcher import StatesSwitcher
 
 
 class CliCommandsHandler(ConsoleAutoCompleter):
@@ -26,6 +27,7 @@ class CliCommandsHandler(ConsoleAutoCompleter):
         self._stop_tts_func = stop_tts_func
         self._tokens_file = _tokens_file
         self._get_locales_func = get_locales_func
+        self._state_switcher = StatesSwitcher(settings)
 
         ConsoleAutoCompleter.__init__(self)
         self.load_commands()
@@ -118,7 +120,10 @@ class CliCommandsHandler(ConsoleAutoCompleter):
                 self._settings[cmd] = self._settings.convert_type_string(args)
                 self._settings.save_settings_to_file()
             else:
-                pprint(self._settings[cmd])
+                if self._settings[cmd] in (True, False):
+                    self._state_switcher.switch_state_interface(cmd)
+                else:
+                    pprint(self._settings[cmd])
         else:
             self.extended_cmds_handle(cmd, args, command)
 
