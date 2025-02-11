@@ -1,4 +1,5 @@
 import asyncio
+import sys
 import threading
 import logging
 import locale
@@ -40,9 +41,15 @@ async def read_chat_loop(reader, settings, stop_event):
                     executor.submit(generate_speech, txt, lang=settings.tts_lang)
                 )
             for future in futures_list:
-                await play_speech(future.result())
+                try:
+                    await play_speech(future.result())
+                except AssertionError:
+                    break
         else:
-            await speak_text(txt, settings.tts_lang)
+            try:
+                await speak_text(txt, settings.tts_lang)
+            except AssertionError:
+                break
         await asyncio.sleep(settings.tts_min_pause)
 
 
@@ -72,7 +79,7 @@ if __name__ == '__main__':
     except (KeyboardInterrupt, EOFError, SystemExit):
         pass
     except Exception as e:
-        logging.error('Unexpected error while running: ', exc_info=e)
+        print('Unexpected error while running: %s' % e, file=sys.stderr)
         input('Press "ENTER" to exit: ')
     finally:
         stop_event.set()

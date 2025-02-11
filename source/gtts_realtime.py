@@ -36,11 +36,8 @@ async def play_speech(mp3_fp: BytesIO) -> None:
 
 
 async def speak_text(text, lang='en') -> None:
-    try:
-        mp3_fp = generate_speech(text, lang)
-        await play_speech(mp3_fp)
-    except Exception as e:
-        logging.error(f"An error occurred: {e}")
+    mp3_fp = generate_speech(text, lang)
+    await play_speech(mp3_fp)
 
 
 def stop_speak() -> None:
